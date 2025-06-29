@@ -41,8 +41,10 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **TypeScript ESLint 8.34** - Advanced TypeScript-specific linting rules
 - **SWC 3.10** - Fast TypeScript/JavaScript compiler via Vite plugin
 - **TSX 4.20** - TypeScript execution for build scripts
-- **Husky** - Git hooks for automated code quality checks
-- **Commitlint** - Conventional commit message linting and enforcement
+- **Husky 9.1** - Git hooks for automated code quality checks
+- **Commitlint 19.8** - Conventional commit message linting and enforcement
+- **Lint-staged 16.1** - Run linters on staged files only for faster commits
+- **Dependabot** - Automated dependency updates via GitHub
 
 ### Server & Production
 - **Express 5.1** - Node.js server framework with middleware support
@@ -128,6 +130,8 @@ A comprehensive, production-ready React template built with modern tools and bes
 
 ```
 react-vite-template/
+├── .github/                # GitHub configuration
+│   └── dependabot.yml     # Dependabot configuration for dependency updates
 ├── .husky/                 # Git hooks configuration
 │   ├── commit-msg         # Commit message validation
 │   └── pre-commit         # Pre-commit linting
@@ -502,8 +506,25 @@ This template enforces code quality and consistent commit messages through autom
 
 The template includes pre-configured Git hooks that run automatically:
 
-- **Pre-commit** - Runs ESLint to check code quality before commits
+- **Pre-commit** - Runs ESLint on staged files only (via lint-staged) to check code quality before commits
 - **Commit-msg** - Validates commit messages against conventional commit standards
+
+### Lint-staged Integration
+
+The template uses lint-staged to run linters only on staged files, making commits faster:
+
+```json
+{
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint",
+      "prettier --write"
+    ]
+  }
+}
+```
+
+This ensures that only the files you're committing are linted, improving performance for large codebases.
 
 ### Conventional Commits with Commitlint
 
@@ -552,6 +573,42 @@ git commit --no-verify -m "emergency fix"
 
 # Skip commit message validation
 git commit --no-verify -m "quick fix"
+```
+
+## 🤖 Automated Dependency Management
+
+### Dependabot Configuration
+
+The template includes automated dependency updates via GitHub Dependabot:
+
+- **Weekly npm package updates** - Keeps dependencies current with security patches
+- **Monthly GitHub Actions updates** - Maintains CI/CD workflow dependencies
+- **Automatic labeling** - PRs are labeled for easy categorization
+- **Smart versioning** - Follows semantic versioning strategies
+
+Configuration is located in `.github/dependabot.yml`:
+
+```yaml
+version: 2
+updates:
+  # Keep npm dependencies updated
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "npm"
+  
+  # Keep GitHub Actions updated  
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "github-actions"
 ```
 
 ## 🏗️ Building for Production

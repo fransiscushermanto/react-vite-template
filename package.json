@@ -1,0 +1,68 @@
+{
+  "name": "react-vite-template",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky && panda codegen",
+    "dev": "tsx ./scripts/prepare-app",
+    "dev:ssr": "yarn dev --ssr",
+    "build": "tsc -b && vite build",
+    "build:ssr": "yarn build:client && yarn build:server",
+    "build:client": "tsc && vite build --outDir dist/client",
+    "build:server": "tsc && vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "lint": "eslint .",
+    "preview": "yarn dev --preview",
+    "preview:ssr": "yarn preview --ssr",
+    "certs:generate": "tsx ./scripts/generate-ssl-certs"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.81.5",
+    "abortcontroller-polyfill": "^1.7.8",
+    "autoprefixer": "^10.4.21",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "humps": "^2.0.1",
+    "ky": "^1.8.1",
+    "minimatch": "^10.0.3",
+    "query-string": "^9.2.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.29.0",
+    "@pandacss/dev": "^0.54.0",
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/humps": "^2.0.6",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "compression": "^1.8.0",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "postcss": "^8.5.6",
+    "sirv": "^3.0.1",
+    "tsx": "^4.20.3",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint",
+      "prettier --write"
+    ]
+  }
+}

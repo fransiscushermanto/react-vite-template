@@ -1,0 +1,19 @@
+@import "../styled-system/styles.css";
+
+@layer reset, base, tokens, recipes, utilities;
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+
+  html,
+  body,
+  div#app {
+    display: flex;
+    flex-direction: column;
+
+    height: auto;
+    min-height: 100dvh;
+  }
+}

@@ -221,8 +221,8 @@ This template uses Panda CSS for styling. It generates utility classes and desig
 ### Basic Usage
 
 ```tsx
-import { css } from '@pandacss/css'
-import { Stack, HStack } from '@pandacss/patterns'
+import { css } from '@/styled-system/css'
+import { Stack, HStack } from '@/styled-system/patterns'
 
 function MyComponent() {
   return (

@@ -15,7 +15,7 @@ export default function getRouteId(
     routeId =
       parentPath?.route.children?.find(({ path }) => path === location.pathname)
         ?.id || "";
-  } else {
+  } else if (results.length === 1) {
     const match = results[0];
     routeId = match.route.id;
   }

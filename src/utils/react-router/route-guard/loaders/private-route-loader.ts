@@ -21,7 +21,7 @@ export const privateRouteLoader = async (args: LoaderFunctionArgs) => {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `/${BASE_REDIRECT_PATH}${next}`,
+        Location: `${BASE_REDIRECT_PATH}${next}`,
       },
     });
   }
@@ -61,7 +61,7 @@ export const privateRouteLoader = async (args: LoaderFunctionArgs) => {
           return new Response(null, {
             status: 302,
             headers: {
-              Location: `/${BASE_REDIRECT_PATH}${next}`,
+              Location: `${BASE_REDIRECT_PATH}${next}`,
             },
           });
         }

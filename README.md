@@ -90,38 +90,26 @@ A comprehensive, production-ready React template built with modern tools and bes
    yarn certs:generate
    ```
 
-4. **Initialize Panda CSS (first time only):**
-   ```bash
-   yarn panda
-   ```
-
-5. **Generate Panda CSS files:**
-   ```bash
-   yarn prepare
-   ```
-
-6. **Start development server:**
+4. **Start development server:**
    ```bash
    yarn dev
    ```
 
-7. **Open your browser:**
+5. **Open your browser:**
    The app will be available via the custom development script (check console for URL)
+
+> **Note:** Panda CSS files are automatically generated when you run `yarn install` (via the `prepare` script) and during build processes, so no manual initialization is required!
 
 ## 📝 Available Scripts
 
 ### Development
 - `yarn dev` - Start development server using custom prepare-app script
-- `yarn dev:ssr` - Start development server with Server-Side Rendering
+- `yarn dev:ssr` - Start development server with Server-Side Rendering and Panda CSS watch mode
 - `yarn prepare` - Setup Husky Git hooks and generate Panda CSS files (runs automatically on install)
 
-### Panda CSS
-- `yarn panda` - Initialize Panda CSS (run once when first setting up the project)
-- `yarn panda --watch` - Watch mode for Panda CSS during development (regenerates styles on file changes)
-
 ### Build & Production
-- `yarn build` - Build for production (TypeScript compilation + Vite build)
-- `yarn build:ssr` - Build with Server-Side Rendering support
+- `yarn build` - Build for production (TypeScript compilation + Panda CSS generation + Vite build)
+- `yarn build:ssr` - Build with Server-Side Rendering support (includes Panda CSS generation)
 - `yarn build:client` - Build client bundle only (TypeScript + Vite)
 - `yarn build:server` - Build server bundle for SSR
 
@@ -231,19 +219,15 @@ react-vite-template/
 
 This template uses Panda CSS for zero-runtime CSS-in-JS with design tokens and utility classes.
 
-### Initial Setup
+### Automatic Setup
 
-When first setting up the project, you need to initialize Panda CSS:
+Panda CSS is automatically configured and initialized in this template:
 
-```bash
-# Initialize Panda CSS (first time only)
-yarn panda
+- **Installation**: Panda CSS files are generated automatically when you run `yarn install` (via the `prepare` script)
+- **Development**: `yarn dev:ssr` includes automatic watch mode for style regeneration
+- **Build**: All build commands automatically regenerate Panda CSS files before building
 
-# For development with auto-regeneration
-yarn panda --watch
-```
-
-This generates the `styled-system/` directory with all CSS utilities, patterns, and type definitions.
+No manual initialization is required! Just install dependencies and start developing.
 
 ### Basic Usage
 

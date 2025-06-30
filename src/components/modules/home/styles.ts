@@ -7,7 +7,12 @@ export const homeCss = css({
   display: "flex",
   flexDirection: "column",
 
-  py: "20",
+  py: "15",
+  px: "4",
+
+  md: {
+    py: "20",
+  },
 
   textAlign: "center",
 

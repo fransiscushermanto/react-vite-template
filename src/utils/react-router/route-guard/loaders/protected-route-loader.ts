@@ -7,6 +7,7 @@ import { queryClient } from "@/react-query/client";
 import COOKIES_KEY from "@/constants/cookies";
 import { parseCookie, stringifyCookie } from "@/utils/cookie";
 import { CustomError } from "@/utils/react-query";
+import { BASE_PATH } from "@/constants/config";
 
 export const protectedRouteLoader = async (args: LoaderFunctionArgs) => {
   const cookies = parseCookie(args.context);
@@ -26,7 +27,7 @@ export const protectedRouteLoader = async (args: LoaderFunctionArgs) => {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: `/dashboard`,
+          Location: `${BASE_PATH}`,
         },
       });
     } catch (err) {
@@ -34,33 +35,6 @@ export const protectedRouteLoader = async (args: LoaderFunctionArgs) => {
       console.error(error);
     }
   }
-
-  // if (typeof loader === "function") {
-  //   const loaderRes = await loader?.(args);
-
-  //   if (isObjectWithDehydratedState(loaderRes)) {
-  //     const outerDehydratedState = loaderRes.dehydratedState;
-  //     const dehydratedState = loaderData.dehydratedState;
-
-  //     if (!!dehydratedState) {
-  //       dehydratedState.queries = [
-  //         ...dehydratedState.queries,
-  //         ...outerDehydratedState.queries,
-  //       ];
-
-  //       dehydratedState.mutations = [
-  //         ...dehydratedState.mutations,
-  //         ...outerDehydratedState.mutations,
-  //       ];
-  //     }
-
-  //     loaderData = { dehydratedState };
-  //   } else {
-  //     loaderData = Object.assign(loaderData, loaderRes);
-  //   }
-  // } else if (!!loader) {
-  //   loaderData = loader;
-  // }
 
   return null;
 };

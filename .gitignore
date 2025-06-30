@@ -29,3 +29,6 @@ styled-system-studio
 
 *.env
 certs
+
+# Package initialization marker
+.package-initialized

@@ -8,6 +8,7 @@ import { parseCookie, stringifyCookie } from "@/utils/cookie";
 import { getNextPath } from "@/utils/url";
 import { CustomError, isCustomError } from "@/utils/react-query";
 import COOKIES_KEY from "@/constants/cookies";
+import { BASE_REDIRECT_PATH } from "@/constants/config";
 
 import { privateRoutes } from "../constants";
 
@@ -20,7 +21,7 @@ export const privateRouteLoader = async (args: LoaderFunctionArgs) => {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `/login${next}`,
+        Location: `/${BASE_REDIRECT_PATH}${next}`,
       },
     });
   }
@@ -60,7 +61,7 @@ export const privateRouteLoader = async (args: LoaderFunctionArgs) => {
           return new Response(null, {
             status: 302,
             headers: {
-              Location: `/login${next}`,
+              Location: `/${BASE_REDIRECT_PATH}${next}`,
             },
           });
         }

@@ -1,10 +1,12 @@
 {
   "name": "react-vite-template",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
     "prepare": "husky",
+    "postinstall": "tsx ./scripts/initialize-package",
+    "init-pkg": "tsx ./scripts/initialize-package --force",
     "dev": "tsx ./scripts/prepare-app",
     "dev:ssr": "yarn panda --watch & yarn dev --ssr",
     "build": "tsc -b && yarn panda && vite build",

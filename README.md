@@ -90,17 +90,22 @@ A comprehensive, production-ready React template built with modern tools and bes
    yarn certs:generate
    ```
 
-4. **Generate Panda CSS files:**
+4. **Initialize Panda CSS (first time only):**
+   ```bash
+   yarn panda
+   ```
+
+5. **Generate Panda CSS files:**
    ```bash
    yarn prepare
    ```
 
-5. **Start development server:**
+6. **Start development server:**
    ```bash
    yarn dev
    ```
 
-6. **Open your browser:**
+7. **Open your browser:**
    The app will be available via the custom development script (check console for URL)
 
 ## 📝 Available Scripts
@@ -109,6 +114,10 @@ A comprehensive, production-ready React template built with modern tools and bes
 - `yarn dev` - Start development server using custom prepare-app script
 - `yarn dev:ssr` - Start development server with Server-Side Rendering
 - `yarn prepare` - Setup Husky Git hooks and generate Panda CSS files (runs automatically on install)
+
+### Panda CSS
+- `yarn panda` - Initialize Panda CSS (run once when first setting up the project)
+- `yarn panda --watch` - Watch mode for Panda CSS during development (regenerates styles on file changes)
 
 ### Build & Production
 - `yarn build` - Build for production (TypeScript compilation + Vite build)
@@ -220,7 +229,21 @@ react-vite-template/
 
 ## 🎨 Styling with Panda CSS
 
-This template uses Panda CSS for styling. It generates utility classes and design tokens at build time.
+This template uses Panda CSS for zero-runtime CSS-in-JS with design tokens and utility classes.
+
+### Initial Setup
+
+When first setting up the project, you need to initialize Panda CSS:
+
+```bash
+# Initialize Panda CSS (first time only)
+yarn panda
+
+# For development with auto-regeneration
+yarn panda --watch
+```
+
+This generates the `styled-system/` directory with all CSS utilities, patterns, and type definitions.
 
 ### Basic Usage
 

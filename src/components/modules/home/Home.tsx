@@ -23,46 +23,42 @@ const Home = () => {
       </div>
 
       <div className="home__cards">
-        <div className="home__cards__card">
-          <Link
-            to="https://vite.dev/guide/ssr"
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <h3>SSR</h3>
-            <p>Server-side rendering with Vite and React.</p>
-          </Link>
-        </div>
-        <div className="home__cards__card">
-          <Link
-            to="https://panda-css.com/docs/overview/getting-started"
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <h3>Panda CSS</h3>
-            <p>Utility-first CSS framework for styling.</p>
-          </Link>
-        </div>
-        <div className="home__cards__card">
-          <Link
-            to="https://tanstack.com/query/latest/docs/framework/react/overview"
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <h3>React Query</h3>
-            <p>Data fetching and state management with React Query.</p>
-          </Link>
-        </div>
-        <div className="home__cards__card">
-          <Link
-            to="https://vite.dev/guide/"
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <h3>Vite</h3>
-            <p>Fast and modern build tool for React applications.</p>
-          </Link>
-        </div>
+        <Link
+          to="https://vite.dev/guide/ssr"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="home__cards__card"
+        >
+          <h3>SSR</h3>
+          <p>Server-side rendering with Vite and React.</p>
+        </Link>
+        <Link
+          to="https://panda-css.com/docs/overview/getting-started"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="home__cards__card"
+        >
+          <h3>Panda CSS</h3>
+          <p>Utility-first CSS framework for styling.</p>
+        </Link>
+        <Link
+          to="https://tanstack.com/query/latest/docs/framework/react/overview"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="home__cards__card"
+        >
+          <h3>React Query</h3>
+          <p>Data fetching and state management with React Query.</p>
+        </Link>
+        <Link
+          to="https://vite.dev/guide/"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="home__cards__card"
+        >
+          <h3>Vite</h3>
+          <p>Fast and modern build tool for React applications.</p>
+        </Link>
       </div>
 
       <p className="footer-notes">

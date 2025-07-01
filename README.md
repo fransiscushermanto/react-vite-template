@@ -10,6 +10,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - 🎨 **Panda CSS 0.54** - Zero-runtime CSS-in-JS with design tokens and atomic styles
 - 🧭 **React Router 7.6** - Enhanced routing with data loading capabilities
 - 🔄 **TanStack Query 5.81** - Powerful data fetching, caching, and synchronization
+- 📝 **React Hook Form** - Enhanced form management with custom field registration and scrolling
 - 🧹 **ESLint 9** - Modern linting with flat config and TypeScript support
 - 🔧 **Express 5.1** - SSR, API support, and production-ready middleware
 - 🔒 **SSL/HTTPS** - Secure development environment with auto-generated certificates
@@ -34,6 +35,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **React Router 7.6** - Declarative routing with data loading and streaming capabilities
 - **TanStack Query 5.81** - Server state management with caching, background updates, and optimistic updates
 - **TanStack Query DevTools** - Development tools for debugging queries
+- **React Hook Form** - Performant forms with easy validation and enhanced field management
 - **Ky 1.8** - Modern, lightweight HTTP client with automatic retries
 
 ### Development & Quality
@@ -152,6 +154,12 @@ react-vite-template/
 │   │   ├── cookies.ts     # Cookie constants
 │   │   └── routes.ts      # Route constants
 │   ├── hooks/             # Custom React hooks
+│   │   ├── react-hook-form/ # Enhanced React Hook Form hooks
+│   │   │   ├── components/ # Form provider components
+│   │   │   ├── use-form.tsx # Enhanced useForm hook
+│   │   │   ├── use-form-context.tsx # Enhanced form context hook
+│   │   │   ├── types.ts   # Form hook type definitions
+│   │   │   └── index.ts   # Exports all form hooks
 │   │   └── react-query/   # TanStack Query hooks
 │   │       ├── index.ts
 │   │       ├── types.ts
@@ -465,6 +473,212 @@ function LoginForm() {
 - **`useRLogin`** - Authenticate user login
 - **`useRLogout`** - Handle user logout
 - *Add more repository hooks as you build features*
+
+## 📝 Form Management with React Hook Form
+
+This template includes enhanced React Hook Form hooks with additional features for better form handling and user experience.
+
+### Enhanced Form Hooks
+
+The template provides custom React Hook Form hooks located in `src/hooks/react-hook-form/`:
+
+- **`useForm`** - Enhanced version of React Hook Form's useForm with field reference management
+- **`useFormContext`** - Enhanced form context hook for accessing form state across components
+- **`FormProvider`** - Enhanced form provider with automatic field registration and scrolling
+
+### Key Features
+
+1. **Automatic Field Reference Management** - Automatically tracks field DOM references
+2. **Custom Scroll to Field** - Enhanced error scrolling without using default scroll functionality
+3. **Type Safety** - Full TypeScript support with enhanced type definitions
+4. **Field Registration** - Automatic field registration for better form management
+
+### Basic Usage
+
+```tsx
+import { useForm, FormProvider } from '@/hooks/react-hook-form'
+import { css } from '@/styled-system/css'
+
+interface FormData {
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+function LoginForm() {
+  const form = useForm<FormData>({
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  })
+
+  const onSubmit = (data: FormData) => {
+    console.log('Form data:', data)
+  }
+
+  return (
+    <FormProvider {...form} scrollToFieldOnError={true}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className={css({ mb: '4' })}>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            {...form.register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address'
+              }
+            })}
+            ref={(el) => {
+              form.fieldsRef.current.email = el
+            }}
+            className={css({ 
+              border: '1px solid',
+              borderColor: form.formState.errors.email ? 'red.500' : 'gray.300',
+              p: '2',
+              rounded: 'md'
+            })}
+          />
+          {form.formState.errors.email && (
+            <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+              {form.formState.errors.email.message}
+            </span>
+          )}
+        </div>
+
+        <div className={css({ mb: '4' })}>
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            {...form.register('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 6,
+                message: 'Password must be at least 6 characters'
+              }
+            })}
+            ref={(el) => {
+              form.fieldsRef.current.password = el
+            }}
+            className={css({ 
+              border: '1px solid',
+              borderColor: form.formState.errors.password ? 'red.500' : 'gray.300',
+              p: '2',
+              rounded: 'md'
+            })}
+          />
+          {form.formState.errors.password && (
+            <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+              {form.formState.errors.password.message}
+            </span>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          className={css({
+            bg: 'blue.500',
+            color: 'white',
+            px: '4',
+            py: '2',
+            rounded: 'md',
+            _disabled: { opacity: 0.5 }
+          })}
+        >
+          {form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+        </button>
+      </form>
+    </FormProvider>
+  )
+}
+```
+
+### Using Form Context
+
+Access form state in child components using the enhanced form context:
+
+```tsx
+import { useFormContext } from '@/hooks/react-hook-form'
+
+function FormField({ name, label, ...props }) {
+  const { register, formState, fieldsRef } = useFormContext()
+  
+  return (
+    <div>
+      <label htmlFor={name}>{label}</label>
+      <input
+        id={name}
+        {...register(name, props.validation)}
+        ref={(el) => {
+          fieldsRef.current[name] = el
+        }}
+        className={css({
+          border: '1px solid',
+          borderColor: formState.errors[name] ? 'red.500' : 'gray.300',
+          p: '2',
+          rounded: 'md'
+        })}
+      />
+      {formState.errors[name] && (
+        <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+          {formState.errors[name]?.message}
+        </span>
+      )}
+    </div>
+  )
+}
+```
+
+### Enhanced Features
+
+#### Field Reference Management
+
+The enhanced hooks automatically manage field references:
+
+```tsx
+const form = useForm()
+
+// fieldsRef is automatically available
+console.log(form.fieldsRef.current) // { email: HTMLInputElement, password: HTMLInputElement }
+```
+
+#### Custom Scroll to Field on Error
+
+When `scrollToFieldOnError` is enabled, the form will automatically scroll to the first field with an error:
+
+```tsx
+<FormProvider {...form} scrollToFieldOnError={true}>
+  {/* Form fields */}
+</FormProvider>
+```
+
+#### Type Safety
+
+Full TypeScript support with enhanced type definitions:
+
+```tsx
+interface FormData {
+  email: string
+  password: string
+}
+
+const form = useForm<FormData>() // Fully typed
+const { register, formState } = form // All methods are typed
+```
+
+### Key Benefits
+
+1. **Enhanced UX** - Automatic scrolling to error fields for better user experience
+2. **Better Performance** - Efficient field reference management
+3. **Type Safety** - Full TypeScript integration with enhanced types
+4. **Flexibility** - Works with existing React Hook Form patterns
+5. **Customizable** - Easy to extend and customize for specific needs
 
 ## 🔧 Development Setup
 

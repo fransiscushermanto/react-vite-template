@@ -38,7 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.31.0",
     "@pandacss/dev": "^0.54.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.9",

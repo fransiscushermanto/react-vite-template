@@ -24,7 +24,7 @@
     "abortcontroller-polyfill": "^1.7.8",
     "autoprefixer": "^10.4.21",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^17.0.0",
+    "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "humps": "^2.0.1",
     "ky": "^1.8.1",

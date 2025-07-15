@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-query-devtools": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.83.0",
     "abortcontroller-polyfill": "^1.7.8",
     "autoprefixer": "^10.4.21",
     "cookie-parser": "^1.4.7",

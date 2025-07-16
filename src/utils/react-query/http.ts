@@ -1,6 +1,6 @@
 import humps from "humps";
 
-import { API_HOST, API_TIMEOUT } from "@/constants/config";
+import { API_ORIGIN, API_TIMEOUT } from "@/constants/config";
 import { camelize } from "@/utils/string";
 import { queryStringify } from "@/utils/url";
 import { type HttpOptions, CustomError } from "./model";
@@ -78,7 +78,7 @@ const http = async (options: HttpOptions) => {
       break;
   }
 
-  const base = baseURL || API_HOST;
+  const base = baseURL || API_ORIGIN;
   const endpoint = base + path;
   const requestPath = endpoint + (_params ? `?${_params}` : "");
 

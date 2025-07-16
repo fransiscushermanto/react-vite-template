@@ -25,15 +25,18 @@ A comprehensive, production-ready React template built with modern tools and bes
 ## 📋 Tech Stack
 
 ### Core Framework
+
 - **React 19.1** - Latest UI library with concurrent features, automatic batching, and improved hydration
 - **TypeScript 5.8** - Type-safe JavaScript with latest language features
 - **Vite 7.0** - Next-generation build tool with instant HMR and optimized production builds
 
 ### Styling & Design
+
 - **Panda CSS 0.54** - Zero-runtime CSS-in-JS with design tokens, utility classes, and component variants
 - **PostCSS 8.5** - Modern CSS processing with autoprefixer and optimization
 
 ### Routing & State Management
+
 - **React Router 7.6** - Declarative routing with data loading and streaming capabilities
 - **TanStack Query 5.83** - Server state management with caching, background updates, and optimistic updates
 - **TanStack Query DevTools** - Development tools for debugging queries
@@ -41,6 +44,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **Ky 1.8** - Modern, lightweight HTTP client with automatic retries
 
 ### Development & Quality
+
 - **ESLint 9** - Code linting with flat config and TypeScript rules
 - **TypeScript ESLint 8.34** - Advanced TypeScript-specific linting rules
 - **SWC 3.10** - Fast TypeScript/JavaScript compiler via Vite plugin
@@ -51,6 +55,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **Dependabot** - Automated dependency updates via GitHub
 
 ### Server & Production
+
 - **Express 5.1** - Node.js server framework with middleware support
 - **Cookie Parser 1.4** - Secure cookie handling and parsing
 - **CORS 2.8** - Cross-Origin Resource Sharing middleware
@@ -59,6 +64,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **Dotenv 17.0** - Environment variable management
 
 ### Utilities & Helpers
+
 - **Humps 2.0** - String case conversion utilities
 - **Query String 9.2** - URL query string parsing and stringifying
 - **Minimatch 10.0** - Glob pattern matching
@@ -67,22 +73,25 @@ A comprehensive, production-ready React template built with modern tools and bes
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Node.js 18+** (LTS recommended)
 - **Yarn** (recommended) or **npm** or **pnpm**
 
 ### Installation
 
 1. **Clone or download this template:**
+
    ```bash
    git clone <repository-url>
    cd react-vite-template
    ```
 
 2. **Set up environment variables:**
+
    ```bash
    # Copy the environment template
    cp .env.example .env
-   
+
    # Edit .env file and set required variables
    VITE_APP_NAME=your-app-name
    DEV_HOST=localhost
@@ -90,6 +99,7 @@ A comprehensive, production-ready React template built with modern tools and bes
    ```
 
 3. **Install dependencies:**
+
    ```bash
    # Using Yarn (recommended)
    yarn install
@@ -100,15 +110,17 @@ A comprehensive, production-ready React template built with modern tools and bes
    # Using pnpm
    pnpm install
    ```
-   
+
    > **Note:** The `postinstall` script will automatically initialize your package.json with the `VITE_APP_NAME` from your environment variables.
 
 4. **Generate SSL certificates (optional for HTTPS):**
+
    ```bash
    yarn certs:generate
    ```
 
 5. **Start development server:**
+
    ```bash
    yarn dev
    ```
@@ -121,6 +133,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 ## 📝 Available Scripts
 
 ### Development
+
 - `yarn dev` - Start development server using custom prepare-app script
 - `yarn dev:ssr` - Start development server with Server-Side Rendering and Panda CSS watch mode
 - `yarn prepare` - Setup Husky Git hooks (runs automatically on install)
@@ -128,19 +141,23 @@ A comprehensive, production-ready React template built with modern tools and bes
 - `yarn init-pkg` - Force re-initialization of package.json (use with --force flag)
 
 ### Build & Production
+
 - `yarn build` - Build for production (TypeScript compilation + Panda CSS generation + Vite build)
 - `yarn build:ssr` - Build with Server-Side Rendering support (includes Panda CSS generation)
 - `yarn build:client` - Build client bundle only (TypeScript + Vite)
 - `yarn build:server` - Build server bundle for SSR
 
 ### Preview & Testing
+
 - `yarn preview` - Preview production build using dev script with --preview flag
 - `yarn preview:ssr` - Preview SSR build
 
 ### Code Quality
+
 - `yarn lint` - Run ESLint for code quality and style checking
 
 ### Utilities
+
 - `yarn certs:generate` - Generate SSL certificates for HTTPS development
 - `yarn init-pkg` - Initialize package.json with app name from environment variables
 
@@ -260,22 +277,24 @@ No manual initialization is required! Just install dependencies and start develo
 ### Basic Usage
 
 ```tsx
-import { css } from '@/styled-system/css'
-import { Stack, HStack } from '@/styled-system/patterns'
+import { css } from "@/styled-system/css";
+import { Stack, HStack } from "@/styled-system/patterns";
 
 function MyComponent() {
   return (
     <Stack gap="4" p="6">
-      <h1 className={css({ fontSize: '2xl', color: 'blue.500' })}>
+      <h1 className={css({ fontSize: "2xl", color: "blue.500" })}>
         Hello World
       </h1>
       <HStack gap="2">
-        <button className={css({ bg: 'blue.500', color: 'white', px: '4', py: '2' })}>
+        <button
+          className={css({ bg: "blue.500", color: "white", px: "4", py: "2" })}
+        >
           Click me
         </button>
       </HStack>
     </Stack>
-  )
+  );
 }
 ```
 
@@ -284,7 +303,7 @@ function MyComponent() {
 Customize Panda CSS in `panda.config.ts`:
 
 ```ts
-import { defineConfig } from "@pandacss/dev"
+import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
   preflight: true,
@@ -296,7 +315,7 @@ export default defineConfig({
     },
   },
   outdir: "styled-system",
-})
+});
 ```
 
 ## 🧭 Routing
@@ -308,20 +327,20 @@ This template uses React Router v7 with file-based routing patterns.
 Routes are defined in `src/routes/index.tsx`:
 
 ```tsx
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter } from "react-router";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     element: <Home />,
   },
   {
-    path: '/about',
+    path: "/about",
     element: <About />,
   },
-]
+];
 
-export default routes
+export default routes;
 ```
 
 ## 🔄 Data Fetching
@@ -345,7 +364,7 @@ repositories/
 │   └── index.ts    # Exports all common operations
 ```
 
-### Repository Hooks (useR* pattern)
+### Repository Hooks (useR\* pattern)
 
 All data operations are encapsulated in repository hooks with the `useR*` naming convention:
 
@@ -405,76 +424,77 @@ Components consume repository hooks for clean separation:
 #### Profile Component
 
 ```tsx
-import { useRGetProfile } from '@/repositories/common'
+import { useRGetProfile } from "@/repositories/common";
 
 function UserProfile() {
-  const { data: profileResult, isLoading, error } = useRGetProfile({
+  const {
+    data: profileResult,
+    isLoading,
+    error,
+  } = useRGetProfile({
     // Additional options can be passed here
     retry: 3,
     staleTime: 5 * 60 * 1000, // 5 minutes
-  })
+  });
 
-  if (isLoading) return <div>Loading profile...</div>
-  if (error) return <div>Error: {error.message}</div>
+  if (isLoading) return <div>Loading profile...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-  const profile = profileResult?.data
-  if (!profile) return <div>No profile found</div>
+  const profile = profileResult?.data;
+  if (!profile) return <div>No profile found</div>;
 
   return (
     <div>
       <h1>Welcome, {profile.name}!</h1>
       <p>Role: {profile.role}</p>
-      {profile.role === 'partner_agent' && (
-        <p>Partner: {profile.partner}</p>
-      )}
+      {profile.role === "partner_agent" && <p>Partner: {profile.partner}</p>}
     </div>
-  )
+  );
 }
 ```
 
 #### Login Component
 
 ```tsx
-import { useRLogin } from '@/repositories/auth'
-import { useQueryClient } from '@tanstack/react-query'
+import { useRLogin } from "@/repositories/auth";
+import { useQueryClient } from "@tanstack/react-query";
 
 function LoginForm() {
-  const queryClient = useQueryClient()
-  
+  const queryClient = useQueryClient();
+
   const loginMutation = useRLogin({
     onSuccess: (result) => {
       // Handle successful login
-      queryClient.invalidateQueries({ queryKey: ['profile'] })
-      console.log('Login successful:', result.data)
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      console.log("Login successful:", result.data);
     },
     onError: (error) => {
-      console.error('Login failed:', error.message)
-    }
-  })
+      console.error("Login failed:", error.message);
+    },
+  });
 
   const handleSubmit = (formData: { email: string; password: string }) => {
     loginMutation.mutate({
       variables: formData,
       context: {
         // Additional context if needed
-      }
-    })
-  }
+      },
+    });
+  };
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      handleSubmit({ email: 'user@example.com', password: 'password' })
-    }}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit({ email: "user@example.com", password: "password" });
+      }}
+    >
       {/* Form fields */}
-      <button 
-        type="submit" 
-        disabled={loginMutation.isPending}
-      >
-        {loginMutation.isPending ? 'Logging in...' : 'Login'}
+      <button type="submit" disabled={loginMutation.isPending}>
+        {loginMutation.isPending ? "Logging in..." : "Login"}
       </button>
     </form>
-  )
+  );
 }
 ```
 
@@ -492,12 +512,13 @@ function LoginForm() {
 - **`useRGetProfile`** - Fetch user profile data
 - **`useRLogin`** - Authenticate user login
 - **`useRLogout`** - Handle user logout
-- *Add more repository hooks as you build features*
+- _Add more repository hooks as you build features_
 
 The template also includes enhanced React Query hooks in `src/hooks/react-query/`:
+
 - **`useQuery`** - Enhanced query hook with custom error handling
 - **`useMutation`** - Enhanced mutation hook with custom context
-- **`useInfiniteQuery`** - Enhanced infinite query hook 
+- **`useInfiniteQuery`** - Enhanced infinite query hook
 - **`useSuspenseQuery`** - Enhanced suspense query hook for React 18+ Suspense
 
 ## 📝 Form Management with React Hook Form
@@ -522,84 +543,86 @@ The template provides custom React Hook Form hooks located in `src/hooks/react-h
 ### Basic Usage
 
 ```tsx
-import { useForm, FormProvider } from '@/hooks/react-hook-form'
-import { css } from '@/styled-system/css'
+import { useForm, FormProvider } from "@/hooks/react-hook-form";
+import { css } from "@/styled-system/css";
 
 interface FormData {
-  email: string
-  password: string
-  confirmPassword: string
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 function LoginForm() {
   const form = useForm<FormData>({
     defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
-  })
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
   const onSubmit = (data: FormData) => {
-    console.log('Form data:', data)
-  }
+    console.log("Form data:", data);
+  };
 
   return (
     <FormProvider {...form} scrollToFieldOnError={true}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className={css({ mb: '4' })}>
+        <div className={css({ mb: "4" })}>
           <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
-            {...form.register('email', {
-              required: 'Email is required',
+            {...form.register("email", {
+              required: "Email is required",
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address'
-              }
+                message: "Invalid email address",
+              },
             })}
             ref={(el) => {
-              form.fieldsRef.current.email = el
+              form.fieldsRef.current.email = el;
             }}
-            className={css({ 
-              border: '1px solid',
-              borderColor: form.formState.errors.email ? 'red.500' : 'gray.300',
-              p: '2',
-              rounded: 'md'
+            className={css({
+              border: "1px solid",
+              borderColor: form.formState.errors.email ? "red.500" : "gray.300",
+              p: "2",
+              rounded: "md",
             })}
           />
           {form.formState.errors.email && (
-            <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+            <span className={css({ color: "red.500", fontSize: "sm" })}>
               {form.formState.errors.email.message}
             </span>
           )}
         </div>
 
-        <div className={css({ mb: '4' })}>
+        <div className={css({ mb: "4" })}>
           <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
-            {...form.register('password', {
-              required: 'Password is required',
+            {...form.register("password", {
+              required: "Password is required",
               minLength: {
                 value: 6,
-                message: 'Password must be at least 6 characters'
-              }
+                message: "Password must be at least 6 characters",
+              },
             })}
             ref={(el) => {
-              form.fieldsRef.current.password = el
+              form.fieldsRef.current.password = el;
             }}
-            className={css({ 
-              border: '1px solid',
-              borderColor: form.formState.errors.password ? 'red.500' : 'gray.300',
-              p: '2',
-              rounded: 'md'
+            className={css({
+              border: "1px solid",
+              borderColor: form.formState.errors.password
+                ? "red.500"
+                : "gray.300",
+              p: "2",
+              rounded: "md",
             })}
           />
           {form.formState.errors.password && (
-            <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+            <span className={css({ color: "red.500", fontSize: "sm" })}>
               {form.formState.errors.password.message}
             </span>
           )}
@@ -609,19 +632,19 @@ function LoginForm() {
           type="submit"
           disabled={form.formState.isSubmitting}
           className={css({
-            bg: 'blue.500',
-            color: 'white',
-            px: '4',
-            py: '2',
-            rounded: 'md',
-            _disabled: { opacity: 0.5 }
+            bg: "blue.500",
+            color: "white",
+            px: "4",
+            py: "2",
+            rounded: "md",
+            _disabled: { opacity: 0.5 },
           })}
         >
-          {form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+          {form.formState.isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </form>
     </FormProvider>
-  )
+  );
 }
 ```
 
@@ -630,11 +653,11 @@ function LoginForm() {
 Access form state in child components using the enhanced form context:
 
 ```tsx
-import { useFormContext } from '@/hooks/react-hook-form'
+import { useFormContext } from "@/hooks/react-hook-form";
 
 function FormField({ name, label, ...props }) {
-  const { register, formState, fieldsRef } = useFormContext()
-  
+  const { register, formState, fieldsRef } = useFormContext();
+
   return (
     <div>
       <label htmlFor={name}>{label}</label>
@@ -642,22 +665,22 @@ function FormField({ name, label, ...props }) {
         id={name}
         {...register(name, props.validation)}
         ref={(el) => {
-          fieldsRef.current[name] = el
+          fieldsRef.current[name] = el;
         }}
         className={css({
-          border: '1px solid',
-          borderColor: formState.errors[name] ? 'red.500' : 'gray.300',
-          p: '2',
-          rounded: 'md'
+          border: "1px solid",
+          borderColor: formState.errors[name] ? "red.500" : "gray.300",
+          p: "2",
+          rounded: "md",
         })}
       />
       {formState.errors[name] && (
-        <span className={css({ color: 'red.500', fontSize: 'sm' })}>
+        <span className={css({ color: "red.500", fontSize: "sm" })}>
           {formState.errors[name]?.message}
         </span>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -668,10 +691,10 @@ function FormField({ name, label, ...props }) {
 The enhanced hooks automatically manage field references:
 
 ```tsx
-const form = useForm()
+const form = useForm();
 
 // fieldsRef is automatically available
-console.log(form.fieldsRef.current) // { email: HTMLInputElement, password: HTMLInputElement }
+console.log(form.fieldsRef.current); // { email: HTMLInputElement, password: HTMLInputElement }
 ```
 
 #### Custom Scroll to Field on Error
@@ -690,12 +713,12 @@ Full TypeScript support with enhanced type definitions:
 
 ```tsx
 interface FormData {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
-const form = useForm<FormData>() // Fully typed
-const { register, formState } = form // All methods are typed
+const form = useForm<FormData>(); // Fully typed
+const { register, formState } = form; // All methods are typed
 ```
 
 ### Key Benefits
@@ -706,7 +729,7 @@ const { register, formState } = form // All methods are typed
 4. **Flexibility** - Works with existing React Hook Form patterns
 5. **Customizable** - Easy to extend and customize for specific needs
 
-## � Smart Package Initialization
+## 💡 Smart Package Initialization
 
 This template includes an intelligent package initialization system that automatically configures your `package.json` based on environment variables.
 
@@ -720,6 +743,7 @@ This template includes an intelligent package initialization system that automat
 ### Usage
 
 **Automatic (Recommended)**:
+
 ```bash
 # First, copy the environment template
 cp .env.example .env
@@ -732,6 +756,7 @@ yarn install
 ```
 
 **Manual**:
+
 ```bash
 # Force re-initialization
 yarn init-pkg --force
@@ -750,11 +775,12 @@ If `VITE_APP_NAME` is not set, the script will warn you and exit, requiring manu
 
 > **Important**: Always copy from `.env.example` to `.env` first, then edit the values as needed. The `.env` file is not tracked in git for security reasons.
 
-## �🔧 Development Setup
+## 🛠️ Development Setup
 
 ### Custom Development Server
 
 This template uses a custom development script (`scripts/prepare-app`) that handles:
+
 - Environment setup
 - SSL certificate management
 - Host configuration
@@ -772,25 +798,21 @@ The certificates will be stored in the `certs/` directory.
 
 ### Environment Variables
 
-The template includes comprehensive environment variable support with multi-environment configuration. 
-
-> **⚠️ Important**: The `.env` file is not included in the repository for security reasons. You must copy `.env.example` to `.env` and configure the values for your environment.
-
-Copy `.env.example` to `.env` and configure:
+The template includes comprehensive environment variable support with multi-environment configuration. Copy `.env.example` to `.env` and configure:
 
 ```env
 # App Configuration
-VITE_APP_NAME=your-app-name           # Required: Used for package.json initialization
-VITE_API_HOST=http://localhost:3000   # API host URL
-VITE_API_BASE_PATH=/api              # API base path
-VITE_API_TIMEOUT=3500                # API request timeout in ms
-VITE_BASE_PATH=/                     # App base path
-VITE_BASE_REDIRECT_PATH=/login       # Default redirect path
-VITE_SSR_API_BASE_PATH=/api          # SSR API base path
+VITE_APP_NAME=your-app-name             # Required: Used for package.json initialization
+VITE_API_ORIGIN=http://localhost:3000   # API origin URL
+VITE_API_BASE_PATH=/api                 # API base path
+VITE_API_TIMEOUT=3500                   # API request timeout in ms
+VITE_BASE_PATH=/                        # App base path
+VITE_BASE_REDIRECT_PATH=/login          # Default redirect path
+VITE_SSR_API_BASE_PATH=/api             # SSR API base path
 
-# Development Configuration  
+# Development Configuration
 DEV_HOST=localhost                   # Development host (can be custom domain)
-PORT=3000                           # Server port
+PORT=3000                            # Server port
 ```
 
 ### Multi-Environment Support
@@ -799,7 +821,7 @@ The template supports multiple environments with different configuration files:
 
 - **Development**: `.env` or `.env.local`
 - **Staging**: `.env.staging` + fallback to `.env` and `.env.local`
-- **UAT**: `.env.uat` + fallback to `.env` and `.env.local`  
+- **UAT**: `.env.uat` + fallback to `.env` and `.env.local`
 - **Production**: `.env.production` + fallback to `.env` and `.env.local`
 
 Environment is determined by the `--mode` flag when running the development server.
@@ -833,10 +855,7 @@ The template uses lint-staged to run linters only on staged files, making commit
 ```json
 {
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint",
-      "prettier --write"
-    ]
+    "src/**/*.{js,jsx,ts,tsx}": ["eslint", "prettier --write"]
   }
 }
 ```
@@ -869,6 +888,7 @@ git commit -m "chore: update dependencies"
 ```
 
 #### Types:
+
 - **feat** - A new feature
 - **fix** - A bug fix
 - **docs** - Documentation only changes
@@ -923,8 +943,8 @@ updates:
       prefix: "npm"
       prefix-development: "dev"
       include: "scope"
-  
-  # Keep GitHub Actions updated  
+
+  # Keep GitHub Actions updated
   - package-ecosystem: "github-actions"
     directory: "/.github"
     schedule:
@@ -938,20 +958,26 @@ updates:
 ## 🏗️ Building for Production
 
 ### Client-Side Rendering (SPA)
+
 ```bash
 yarn build
 ```
+
 This runs TypeScript compilation followed by Vite build.
 
 ### Server-Side Rendering (SSR)
+
 ```bash
 yarn build:ssr
 ```
+
 This builds both client and server bundles:
+
 - Client bundle: `dist/client/`
 - Server bundle: `dist/server/`
 
 ### Individual Builds
+
 ```bash
 # Build only the client
 yarn build:client
@@ -978,15 +1004,19 @@ yarn build:server
 ## 📚 Key Concepts
 
 ### Repository Pattern
+
 The template implements a repository pattern for data access, separating business logic from data fetching.
 
 ### Modular Components
+
 Components are organized by feature modules for better scalability.
 
 ### Type Safety
+
 Full TypeScript integration ensures type safety across the entire application.
 
 ### Performance
+
 - SWC for fast compilation
 - Vite for instant HMR
 - TanStack Query for efficient data caching
@@ -1007,6 +1037,7 @@ This template is available as open source under the terms of the [MIT License](L
 ## 📞 Support
 
 For questions and support:
+
 - Check the documentation for each technology used
 - Open an issue on GitHub
 - Review the example implementations in the template

@@ -28,8 +28,8 @@ switch (mode) {
 
 const DEFAULT_PORT = Number(process.env.PORT) || 3000;
 export const APP_BASE_PATH = process.env.VITE_BASE_PATH || "/";
-export const APP_API_HOST =
-  process.env.VITE_API_HOST || "http://localhost:3000";
+export const APP_API_ORIGIN =
+  process.env.VITE_API_ORIGIN || "http://localhost:3000";
 export const __dirname = dirname(fileURLToPath(import.meta.url));
 export const HOST = process.env.DEV_HOST;
 export const isProduction = !!getCliArgs("--preview");

@@ -9,7 +9,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - 🎯 **TypeScript 5.8** - Full type safety with latest language features
 - 🎨 **Panda CSS 0.54** - Zero-runtime CSS-in-JS with design tokens and atomic styles
 - 🧭 **React Router 7.6** - Enhanced routing with data loading capabilities
-- 🔄 **TanStack Query 5.81** - Powerful data fetching, caching, and synchronization
+- 🔄 **TanStack Query 5.83** - Powerful data fetching, caching, and synchronization
 - 📝 **React Hook Form** - Enhanced form management with custom field registration and scrolling
 - 🧹 **ESLint 9** - Modern linting with flat config and TypeScript support
 - 🔧 **Express 5.1** - SSR, API support, and production-ready middleware
@@ -19,6 +19,8 @@ A comprehensive, production-ready React template built with modern tools and bes
 - 🛠️ **Development Tools** - Hot reload, TypeScript paths, and modern dev experience
 - 🎯 **Git Hooks** - Automated code quality checks with Husky
 - 📝 **Conventional Commits** - Enforced commit message standards with Commitlint
+- 🔄 **Package Initialization** - Smart package.json initialization with environment-based naming
+- 🌐 **Multi-Environment Support** - Comprehensive environment configuration for development, staging, UAT, and production
 
 ## 📋 Tech Stack
 
@@ -33,7 +35,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 
 ### Routing & State Management
 - **React Router 7.6** - Declarative routing with data loading and streaming capabilities
-- **TanStack Query 5.81** - Server state management with caching, background updates, and optimistic updates
+- **TanStack Query 5.83** - Server state management with caching, background updates, and optimistic updates
 - **TanStack Query DevTools** - Development tools for debugging queries
 - **React Hook Form** - Performant forms with easy validation and enhanced field management
 - **Ky 1.8** - Modern, lightweight HTTP client with automatic retries
@@ -51,6 +53,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 ### Server & Production
 - **Express 5.1** - Node.js server framework with middleware support
 - **Cookie Parser 1.4** - Secure cookie handling and parsing
+- **CORS 2.8** - Cross-Origin Resource Sharing middleware
 - **Compression 1.8** - Response compression for better performance
 - **Sirv 3.0** - Static file serving for production
 - **Dotenv 17.0** - Environment variable management
@@ -75,7 +78,18 @@ A comprehensive, production-ready React template built with modern tools and bes
    cd react-vite-template
    ```
 
-2. **Install dependencies:**
+2. **Set up environment variables:**
+   ```bash
+   # Copy the environment template
+   cp .env.example .env
+   
+   # Edit .env file and set required variables
+   VITE_APP_NAME=your-app-name
+   DEV_HOST=localhost
+   # ... other variables as needed
+   ```
+
+3. **Install dependencies:**
    ```bash
    # Using Yarn (recommended)
    yarn install
@@ -86,28 +100,32 @@ A comprehensive, production-ready React template built with modern tools and bes
    # Using pnpm
    pnpm install
    ```
+   
+   > **Note:** The `postinstall` script will automatically initialize your package.json with the `VITE_APP_NAME` from your environment variables.
 
-3. **Generate SSL certificates (optional for HTTPS):**
+4. **Generate SSL certificates (optional for HTTPS):**
    ```bash
    yarn certs:generate
    ```
 
-4. **Start development server:**
+5. **Start development server:**
    ```bash
    yarn dev
    ```
 
-5. **Open your browser:**
+6. **Open your browser:**
    The app will be available via the custom development script (check console for URL)
 
-> **Note:** Panda CSS files are automatically generated when you run `yarn install` (via the `prepare` script) and during build processes, so no manual initialization is required!
+> **Note:** Panda CSS files are automatically generated when you run `yarn install` (via the `postinstall` script) and during build processes. The package initialization script will also set up your package.json with the correct app name from environment variables, so no manual initialization is required!
 
 ## 📝 Available Scripts
 
 ### Development
 - `yarn dev` - Start development server using custom prepare-app script
 - `yarn dev:ssr` - Start development server with Server-Side Rendering and Panda CSS watch mode
-- `yarn prepare` - Setup Husky Git hooks and generate Panda CSS files (runs automatically on install)
+- `yarn prepare` - Setup Husky Git hooks (runs automatically on install)
+- `yarn postinstall` - Initialize package.json with environment-based app name
+- `yarn init-pkg` - Force re-initialization of package.json (use with --force flag)
 
 ### Build & Production
 - `yarn build` - Build for production (TypeScript compilation + Panda CSS generation + Vite build)
@@ -124,6 +142,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 
 ### Utilities
 - `yarn certs:generate` - Generate SSL certificates for HTTPS development
+- `yarn init-pkg` - Initialize package.json with app name from environment variables
 
 ## 🏗️ Project Structure
 
@@ -196,6 +215,7 @@ react-vite-template/
 │   └── utils.ts           # Server utilities
 ├── scripts/               # Build and development scripts
 │   ├── generate-ssl-certs.ts # SSL certificate generation
+│   ├── initialize-package.ts # Package.json initialization script
 │   └── prepare-app/       # App preparation scripts
 │       ├── index.ts
 │       └── utils.ts
@@ -206,9 +226,9 @@ react-vite-template/
 │   └── types/             # Type definitions
 ├── certs/                 # SSL certificates (generated)
 ├── dist/                  # Build output
-├── .env                   # Environment variables
 ├── .env.example           # Environment variables template
 ├── .gitignore             # Git ignore rules
+├── .package-initialized   # Package initialization marker file
 ├── .commitlintrc.json     # Commitlint configuration
 ├── eslint.config.js       # ESLint configuration
 ├── index.html             # HTML template
@@ -474,6 +494,12 @@ function LoginForm() {
 - **`useRLogout`** - Handle user logout
 - *Add more repository hooks as you build features*
 
+The template also includes enhanced React Query hooks in `src/hooks/react-query/`:
+- **`useQuery`** - Enhanced query hook with custom error handling
+- **`useMutation`** - Enhanced mutation hook with custom context
+- **`useInfiniteQuery`** - Enhanced infinite query hook 
+- **`useSuspenseQuery`** - Enhanced suspense query hook for React 18+ Suspense
+
 ## 📝 Form Management with React Hook Form
 
 This template includes enhanced React Hook Form hooks with additional features for better form handling and user experience.
@@ -680,7 +706,51 @@ const { register, formState } = form // All methods are typed
 4. **Flexibility** - Works with existing React Hook Form patterns
 5. **Customizable** - Easy to extend and customize for specific needs
 
-## 🔧 Development Setup
+## � Smart Package Initialization
+
+This template includes an intelligent package initialization system that automatically configures your `package.json` based on environment variables.
+
+### How It Works
+
+1. **Environment Detection**: The script checks for `VITE_APP_NAME` in your environment variables
+2. **Smart Initialization**: Only runs on fresh installs (no marker file present) or when explicitly requested
+3. **Package Configuration**: Updates `package.json` with your app name and resets version to `0.0.0`
+4. **Marker Creation**: Creates `.package-initialized` file to prevent repeated initialization
+
+### Usage
+
+**Automatic (Recommended)**:
+```bash
+# First, copy the environment template
+cp .env.example .env
+
+# Edit .env file and set your app name
+# VITE_APP_NAME=my-awesome-app
+
+# Install dependencies - initialization happens automatically
+yarn install
+```
+
+**Manual**:
+```bash
+# Force re-initialization
+yarn init-pkg --force
+```
+
+### Environment Requirements
+
+Make sure to set the required environment variable:
+
+```env
+# .env (copy from .env.example first)
+VITE_APP_NAME=your-app-name
+```
+
+If `VITE_APP_NAME` is not set, the script will warn you and exit, requiring manual setup.
+
+> **Important**: Always copy from `.env.example` to `.env` first, then edit the values as needed. The `.env` file is not tracked in git for security reasons.
+
+## �🔧 Development Setup
 
 ### Custom Development Server
 
@@ -702,22 +772,48 @@ The certificates will be stored in the `certs/` directory.
 
 ### Environment Variables
 
-The template includes environment variable support. Copy `.env.example` to `.env` and configure:
+The template includes comprehensive environment variable support with multi-environment configuration. 
+
+> **⚠️ Important**: The `.env` file is not included in the repository for security reasons. You must copy `.env.example` to `.env` and configure the values for your environment.
+
+Copy `.env.example` to `.env` and configure:
 
 ```env
-# Example environment variables
-DEV_HOST=localhost
-PORT=3000
-# Add your environment-specific variables here
+# App Configuration
+VITE_APP_NAME=your-app-name           # Required: Used for package.json initialization
+VITE_API_HOST=http://localhost:3000   # API host URL
+VITE_API_BASE_PATH=/api              # API base path
+VITE_API_TIMEOUT=3500                # API request timeout in ms
+VITE_BASE_PATH=/                     # App base path
+VITE_BASE_REDIRECT_PATH=/login       # Default redirect path
+VITE_SSR_API_BASE_PATH=/api          # SSR API base path
+
+# Development Configuration  
+DEV_HOST=localhost                   # Development host (can be custom domain)
+PORT=3000                           # Server port
 ```
 
-### Host Setup
+### Multi-Environment Support
 
-Use the provided script for host configuration:
+The template supports multiple environments with different configuration files:
 
-```bash
-./setup-host.sh
-```
+- **Development**: `.env` or `.env.local`
+- **Staging**: `.env.staging` + fallback to `.env` and `.env.local`
+- **UAT**: `.env.uat` + fallback to `.env` and `.env.local`  
+- **Production**: `.env.production` + fallback to `.env` and `.env.local`
+
+Environment is determined by the `--mode` flag when running the development server.
+
+### Package Initialization
+
+The template includes an intelligent package initialization system:
+
+- **Automatic**: Runs via `postinstall` script when you first install dependencies
+- **Environment-Based**: Uses `VITE_APP_NAME` from your environment variables
+- **Smart Detection**: Only runs on fresh installs or when explicitly requested
+- **Manual Override**: Use `yarn init-pkg --force` to reinitialize
+
+**Important**: Make sure to set `VITE_APP_NAME` in your `.env` file before running `yarn install` for automatic package initialization.
 
 ## 🎯 Git Workflow & Code Quality
 
@@ -802,10 +898,11 @@ git commit --no-verify -m "quick fix"
 
 The template includes automated dependency updates via GitHub Dependabot:
 
-- **Weekly npm package updates** - Keeps dependencies current with security patches
+- **Monthly npm package updates** - Keeps dependencies current with security patches
 - **Monthly GitHub Actions updates** - Maintains CI/CD workflow dependencies
 - **Automatic labeling** - PRs are labeled for easy categorization
 - **Smart versioning** - Follows semantic versioning strategies
+- **Scoped commits** - Commit messages include scope and development prefixes
 
 Configuration is located in `.github/dependabot.yml`:
 
@@ -816,17 +913,23 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     open-pull-requests-limit: 10
+    versioning-strategy: auto
     labels:
       - "dependencies"
       - "npm"
+    commit-message:
+      prefix: "npm"
+      prefix-development: "dev"
+      include: "scope"
   
   # Keep GitHub Actions updated  
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "github-actions"
@@ -868,6 +971,9 @@ yarn build:server
 - **`tsconfig.app.json`** - App-specific TypeScript settings
 - **`tsconfig.node.json`** - Node.js TypeScript settings
 - **`postcss.config.cjs`** - PostCSS configuration for CSS processing
+- **`.env.example`** - Environment variables template with all supported variables
+- **`setup-host.sh`** - Host setup script for development environment
+- **`scripts/initialize-package.ts`** - Package.json initialization script
 
 ## 📚 Key Concepts
 

@@ -1,7 +1,7 @@
 {
   "name": "react-vite-template",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "prepare": "husky",
@@ -24,6 +24,7 @@
     "abortcontroller-polyfill": "^1.7.8",
     "autoprefixer": "^10.4.21",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "humps": "^2.0.1",
@@ -42,6 +43,7 @@
     "@pandacss/dev": "^0.54.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/humps": "^2.0.6",
     "@types/react": "^19.1.8",

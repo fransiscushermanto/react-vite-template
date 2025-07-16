@@ -6,14 +6,16 @@ const router = express.Router();
 
 router.post("/login", (req, res, next) => {
   const { referer = "" } = req.headers;
-  const { access_token } = req.cookies;
+  const cookies = req.cookies;
 
-  if (!access_token) {
+  const accessToken = cookies[COOKIES_KEY.ACCESS_TOKEN];
+
+  if (!accessToken) {
     next();
     return;
   }
 
-  res.cookie("is_logged_in", "true");
+  res.cookie(COOKIES_KEY.IS_LOGGED_IN, "true");
 
   const url = new URL(referer);
   const protocol = req.protocol;

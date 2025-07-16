@@ -13,6 +13,8 @@ export interface MutationFnContext
     Omit<HttpOptions, "ignoreCamelize" | "params" | "body"> {
   isFormData?: boolean;
   contentType?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  queryParams?: Record<string, any>;
   /**
    * This to override default basePath from env
    */

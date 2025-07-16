@@ -2,11 +2,10 @@ import {
   type QueryKey,
   useSuspenseQuery as _useSuspenseQuery,
   type UseSuspenseQueryOptions,
+  type QueryMeta,
 } from "@tanstack/react-query";
 
 import type { CustomError } from "@/utils/react-query";
-
-import type { QueryMeta } from "./types";
 
 const useSuspenseQuery = <
   TQueryFnData = unknown,

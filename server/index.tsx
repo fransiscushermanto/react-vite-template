@@ -4,18 +4,25 @@ import https from "https";
 import express from "express";
 import cookieParser from "cookie-parser";
 import type { ViteDevServer } from "vite";
+import cors from "cors";
 
-import { HOST, PORT, isProduction, isCloud, __dirname } from "./constants";
+import {
+  HOST,
+  PORT,
+  isProduction,
+  isCloud,
+  __dirname,
+  APP_BASE_PATH,
+} from "./constants";
 import { getSSLCredentials } from "./utils";
 import api from "./api";
-
-const base = process.env.VITE_BASE_PATH || "/";
 
 async function createServer() {
   const app = express();
 
   app.use(express.json());
   app.use(cookieParser());
+  app.use(cors());
 
   let vite: ViteDevServer | undefined;
   if (!isProduction) {
@@ -26,7 +33,7 @@ async function createServer() {
         middlewareMode: true, // Enable middleware mode for SSR
       },
       appType: "custom",
-      base,
+      base: APP_BASE_PATH,
     });
     app.use(vite.middlewares);
   } else {
@@ -34,7 +41,7 @@ async function createServer() {
     const sirv = (await import("sirv")).default;
     app.use(compression());
     app.use(
-      base,
+      APP_BASE_PATH,
       sirv(path.resolve(__dirname, "..", "dist/client"), {
         extensions: [],
       }),

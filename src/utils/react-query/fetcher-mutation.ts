@@ -16,6 +16,7 @@ const fetcherMutation = async (options: FetcherMutationOptions) => {
     basePath,
     apiVersion,
     isFormData,
+    queryParams,
     ...restContext
   } = context;
 
@@ -24,9 +25,12 @@ const fetcherMutation = async (options: FetcherMutationOptions) => {
   }
 
   const version = `/v${apiVersion ?? 1}`;
+  const search = queryParams
+    ? `?${new URLSearchParams(queryParams).toString()}`
+    : "";
 
   const response = await http({
-    path: `${basePath ?? API_BASE_PATH}${version}/${path}`,
+    path: `${basePath ?? API_BASE_PATH}${version}/${path}${search}`,
     body: variables,
     method: method ?? "POST",
     headers,

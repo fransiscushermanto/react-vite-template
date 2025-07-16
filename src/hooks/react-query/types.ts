@@ -6,14 +6,10 @@ import type {
   QueryFunctionContext as DefaultQueryFunctionContext,
   UseSuspenseQueryOptions as DefaultUseSuspenseQueryOptions,
   UseSuspenseInfiniteQueryOptions as DefaultUseSuspenseInfiniteQueryOptions,
-  QueryMeta as DefaultQueryMeta,
+  QueryMeta,
 } from "@tanstack/react-query";
 
-import type {
-  CustomError,
-  HttpOptions,
-  MutationFnContext,
-} from "@/utils/react-query";
+import type { CustomError, MutationFnContext } from "@/utils/react-query";
 
 export type MutationFnArgs<TVars = unknown> = (TVars extends object
   ? {
@@ -103,28 +99,6 @@ export interface UseSuspenseInfiniteQueryOptions<
     "queryKey"
   > {
   queryKey?: QueryKey;
-}
-
-export interface QueryMeta extends DefaultQueryMeta {
-  /**
-   * To replace env basePath
-   */
-  basePath?: string;
-  /**
-   * To use other version of the api
-   */
-  apiVersion?: "2";
-  /**
-   * Keys of object that want to be ignore to be camelized
-   *
-   * If `true` all keys will not be camelized
-   *
-   * Note: camelize only apply by default to header `content-type` = `application/json`
-   *
-   * @default true
-   */
-  ignoreCamelize?: HttpOptions["ignoreCamelize"];
-  headers?: Record<string, string>;
 }
 
 export type QueryFunctionContext<

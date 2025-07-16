@@ -11,9 +11,9 @@ import http from "./http";
 const fetcherQuery = async (options: QueryFunctionContext) => {
   const { queryKey = [], meta = {} } = options;
 
-  const { apiVersion, basePath, ignoreCamelize, headers } = meta;
+  const { apiVersion, basePath, ...rest } = meta;
 
-  const version = apiVersion ? `/v${apiVersion}` : "";
+  const version = `/v${apiVersion ?? 1}`;
 
   const [rpath, rparams] = queryKey;
   const path = rpath ? `${basePath ?? API_BASE_PATH}${version}/${rpath}` : "";
@@ -23,8 +23,7 @@ const fetcherQuery = async (options: QueryFunctionContext) => {
   const response = await http({
     path,
     params: pstring,
-    ignoreCamelize,
-    headers,
+    ...rest,
   });
   return Promise.resolve(response);
 };

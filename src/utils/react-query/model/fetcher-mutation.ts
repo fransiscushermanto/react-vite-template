@@ -1,5 +1,5 @@
 import type { QueryMeta } from "@tanstack/react-query";
-import type { HTTPMethods } from "./http";
+import type { HttpOptions } from "./http";
 
 // variables can be anything
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,10 +8,9 @@ export interface FetcherMutationOptions<TVars = any> {
   context: MutationFnContext;
 }
 
-export interface MutationFnContext extends QueryMeta {
-  path: string;
-  method?: HTTPMethods;
-  headers?: Record<string, string>;
+export interface MutationFnContext
+  extends QueryMeta,
+    Omit<HttpOptions, "ignoreCamelize" | "params" | "body"> {
   isFormData?: boolean;
   contentType?: string;
   /**

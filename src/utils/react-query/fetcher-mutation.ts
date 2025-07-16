@@ -16,21 +16,21 @@ const fetcherMutation = async (options: FetcherMutationOptions) => {
     basePath,
     apiVersion,
     isFormData,
-    ignoreCamelize,
+    ...restContext
   } = context;
 
   if (!isFormData) {
     headers["Content-Type"] = "application/json";
   }
 
-  const version = apiVersion ? `/v${apiVersion}` : "";
+  const version = `/v${apiVersion ?? 1}`;
 
   const response = await http({
     path: `${basePath ?? API_BASE_PATH}${version}/${path}`,
     body: variables,
     method: method ?? "POST",
     headers,
-    ignoreCamelize,
+    ...restContext,
   });
 
   return Promise.resolve(response);

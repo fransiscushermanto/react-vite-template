@@ -1,7 +1,10 @@
 import type { QueryMeta as DefaultQueryMeta } from "@tanstack/react-query";
+import type { HttpOptions } from "@/utils/react-query";
 
 declare module "@tanstack/react-query" {
-  interface QueryMeta extends DefaultQueryMeta {
+  interface QueryMeta
+    extends DefaultQueryMeta,
+      Omit<HttpOptions, "params" | "body" | "path"> {
     /**
      * To replace env basePath
      */
@@ -10,16 +13,5 @@ declare module "@tanstack/react-query" {
      * To use other version of the api
      */
     apiVersion?: "2";
-    /**
-     * Keys of object that want to be ignore to be camelized
-     *
-     * If `true` all keys will not be camelized
-     *
-     * Note: camelize only apply by default to header `content-type` = `application/json`
-     *
-     * @default true
-     */
-    ignoreCamelize?: HttpOptions["ignoreCamelize"];
-    headers?: Record<string, string>;
   }
 }

@@ -2,11 +2,10 @@ import {
   type QueryKey,
   useQuery as _useQuery,
   type UseQueryOptions,
+  type QueryMeta,
 } from "@tanstack/react-query";
 
 import type { CustomError } from "@/utils/react-query";
-
-import type { QueryMeta } from "./types";
 
 const useQuery = <
   TQueryFnData = unknown,

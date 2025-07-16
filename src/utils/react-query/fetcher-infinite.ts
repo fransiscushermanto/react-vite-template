@@ -15,9 +15,9 @@ const fetcherInfinite = async (
 ): Promise<InfiniteResult> => {
   const { queryKey = [], pageParam, meta = {} } = options;
 
-  const { apiVersion, basePath, ignoreCamelize } = meta;
+  const { apiVersion, basePath, ...restMeta } = meta;
 
-  const version = apiVersion ? `/v${apiVersion}` : "";
+  const version = `/v${apiVersion ?? 1}`;
 
   const [rpath, rparams] = queryKey;
   const path = rpath ? `${basePath ?? API_BASE_PATH}${version}/${rpath}` : "";
@@ -33,7 +33,7 @@ const fetcherInfinite = async (
   const response = await http({
     path,
     params,
-    ignoreCamelize,
+    ...restMeta,
   });
 
   return Promise.resolve({ data: response, variables: variables });

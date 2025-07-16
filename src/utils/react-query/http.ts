@@ -54,6 +54,8 @@ const http = async (options: HttpOptions) => {
     headers = {},
     body,
     ignoreCamelize,
+    credentials = "include",
+    ...restOptions
   } = options;
   let _http_body: unknown | undefined = undefined;
   let _params = undefined;
@@ -100,9 +102,10 @@ const http = async (options: HttpOptions) => {
     method: method,
     body: _http_body as BodyInit,
     signal: controller.signal,
-    credentials: "include",
+    credentials,
     headers,
     ignoreCamelize,
+    ...restOptions,
   });
 
   const response = await timeout<Response>(

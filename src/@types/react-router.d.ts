@@ -1,5 +1,9 @@
 import type { DehydratedState } from "@tanstack/react-query";
-import type { IndexRouteObject, NonIndexRouteObject } from "react-router";
+import type {
+  IndexRouteObject,
+  NonIndexRouteObject,
+  LoaderFunctionArgs,
+} from "react-router";
 
 declare module "react-router" {
   type DataFunctionValue =

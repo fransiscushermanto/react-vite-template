@@ -13,6 +13,7 @@ import {
   routeGuard,
   getRouteId,
   isObjectWithDehydratedState,
+  serializeRouteCustomErrors,
 } from "@/utils/react-router";
 
 import App from "./App";
@@ -108,7 +109,7 @@ export async function render(
     "react-router": {
       actionData: context.actionData,
       loaderData: context.loaderData,
-      errors: context.errors,
+      errors: serializeRouteCustomErrors(context.errors),
     },
   };
 

@@ -16,8 +16,7 @@ export type MutationFnArgs<TVars = unknown> = (TVars extends object
       variables: TVars;
     }
   : { variables?: TVars }) & {
-  context?: Omit<MutationFnContext, "path"> &
-    Pick<Partial<MutationFnContext>, "path">;
+  context?: Partial<MutationFnContext>;
 };
 
 export type UseMutationOptions<

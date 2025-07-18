@@ -4,21 +4,18 @@ import { renderToString } from "react-dom/server";
 import {
   createStaticHandler,
   createStaticRouter,
-  StaticRouterProvider,
+  type DOMRouterOpts,
 } from "react-router";
-import {
-  QueryClientProvider,
-  type DehydratedState,
-} from "@tanstack/react-query";
+import { type DehydratedState } from "@tanstack/react-query";
 
 import routes from "@/routes";
-import { queryClient } from "@/react-query/client";
 import {
   routeGuard,
   getRouteId,
   isObjectWithDehydratedState,
 } from "@/utils/react-router";
 
+import App from "./App";
 import "./global.css";
 
 const { query, dataRoutes } = createStaticHandler(routeGuard(routes));
@@ -76,28 +73,44 @@ export async function render(
     return context;
   }
 
-  let dehydratedState: DehydratedState = { mutations: [], queries: [] };
+  let dehydratedState: {
+    "react-query": DehydratedState;
+    "react-router": DOMRouterOpts["hydrationData"];
+  } = {
+    "react-query": { mutations: [], queries: [] },
+    "react-router": { actionData: {}, loaderData: {}, errors: {} },
+  };
 
   const routeId = getRouteId(context.matches, context.location);
   const routeLoaderData = context.loaderData[String(routeId)];
 
   if (isObjectWithDehydratedState(routeLoaderData)) {
-    dehydratedState = routeLoaderData.dehydratedState;
+    dehydratedState = {
+      ...dehydratedState,
+      "react-query": routeLoaderData.dehydratedState,
+    };
   }
 
   const router = createStaticRouter(dataRoutes, context);
 
   const html = renderToString(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <StaticRouterProvider context={context} router={router} />
-      </QueryClientProvider>
+      <App ssr routerContext={context} router={router} />
     </StrictMode>,
   );
 
   const deepestMatch = context.matches[context.matches.length - 1];
   const actionHeaders = context.actionHeaders[deepestMatch.route.id];
   const loaderHeaders = context.loaderHeaders[deepestMatch.route.id];
+
+  dehydratedState = {
+    ...dehydratedState,
+    "react-router": {
+      actionData: context.actionData,
+      loaderData: context.loaderData,
+      errors: context.errors,
+    },
+  };
 
   const headers = new Headers(actionHeaders);
 

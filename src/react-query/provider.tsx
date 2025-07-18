@@ -3,9 +3,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { queryClient } from "./client";
 
-const dehydratedState = window.__REACT_QUERY_STATE__;
+const dehydratedState =
+  typeof window !== "undefined" ? window.__REACT_QUERY_STATE__ : undefined;
 
-export function ReactQueryWrapper(props: React.PropsWithChildren) {
+export function ReactQueryProvider(props: React.PropsWithChildren) {
   const { children } = props;
 
   return (

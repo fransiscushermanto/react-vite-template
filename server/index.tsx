@@ -133,13 +133,16 @@ async function createServer() {
 
       const node = template
         .replace(`<!--ssr-outlet-->`, html)
-        .replace(`"<!--ssr-query-state-->"`, JSON.stringify(dehydratedState["react-query"]))
-        .replace(`"<!--ssr-router-state-->"`, JSON.stringify(dehydratedState["react-router"]))
-        .replace(`<!--ssr-critical-css-->`, criticalCSS)
         .replace(
-          /<script type="module" src="\/src\/main\.tsx(?:\?[^"]*)?"><\/script>/,
-          `<script type="module" src="/src/entry-client.tsx"></script>`,
-        );
+          `"<!--ssr-query-state-->"`,
+          JSON.stringify(dehydratedState["react-query"]),
+        )
+        .replace(
+          `"<!--ssr-router-state-->"`,
+          JSON.stringify(dehydratedState["react-router"]),
+        )
+        .replace(`<!--ssr-critical-css-->`, criticalCSS);
+
       res.status(200).set({ "Content-Type": "text/html" }).end(node);
     } catch (error) {
       vite?.ssrFixStacktrace(error as Error);

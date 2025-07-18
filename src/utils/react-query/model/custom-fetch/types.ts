@@ -56,6 +56,7 @@ export class CustomError<TPayload = ApiError> extends Error {
     }
 
     super(message);
+    this.name = "CustomError";
     this.retry = retry;
     this.ignoreCamelize = ignoreCamelize;
     this.payload = handlePayload(payload, ignoreCamelize);

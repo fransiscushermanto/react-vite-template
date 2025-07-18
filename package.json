@@ -30,6 +30,7 @@
     "humps": "^2.0.1",
     "ky": "^1.8.1",
     "minimatch": "^10.0.3",
+    "node-fetch": "^3.3.2",
     "query-string": "^9.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

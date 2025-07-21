@@ -13,6 +13,8 @@ function Error(props: ErrorProps = { offline: false }) {
   let message: string = "Unknown Error";
   const routerError = useRouteError();
 
+  console.log("routerError", routerError);
+
   if (isRouteErrorResponse(routerError)) {
     statusCode = routerError.status;
     message = routerError.statusText;

@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import react from "@vitejs/plugin-react-swc";
+import { reactRouter } from "@react-router/dev/vite";
 import pandacss from "@pandacss/dev/postcss";
 import autoprefixer from "autoprefixer";
 
@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    plugins: [react(), tsConfigPaths({ root: "./" })],
+    plugins: [reactRouter(), tsConfigPaths({ root: "./" })],
     css: {
       postcss: {
         plugins: [

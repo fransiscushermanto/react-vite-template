@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 import { cx } from "@styled-system/css";
 
 import { homeCss } from "./styles";
@@ -6,6 +7,10 @@ import { homeCss } from "./styles";
 const Home = () => {
   return (
     <div className={cx("home", homeCss)}>
+      <Link to="/about" prefetch="intent">
+        Go to About
+      </Link>
+
       <div className="text-wrapper">
         <h1 className="home__title">
           Welcome to{" "}

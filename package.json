@@ -19,7 +19,7 @@
     "certs:generate": "tsx ./scripts/generate-ssl-certs"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.83.0",
+    "@tanstack/react-query": "^5.84.0",
     "@tanstack/react-query-devtools": "^5.81.5",
     "abortcontroller-polyfill": "^1.7.8",
     "autoprefixer": "^10.4.21",

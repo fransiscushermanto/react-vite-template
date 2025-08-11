@@ -8,7 +8,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 - ⚛️ **React 19.1** - Latest React with concurrent features and improved performance
 - 🎯 **TypeScript 5.8** - Full type safety with latest language features
 - 🎨 **Panda CSS 0.54** - Zero-runtime CSS-in-JS with design tokens and atomic styles
-- 🧭 **React Router 7.6** - Enhanced routing with data loading capabilities
+- 🧭 **React Router 7.6** - Enhanced routing with framework mode, data loading capabilities, and file-based routing
 - 🔄 **TanStack Query 5.83** - Powerful data fetching, caching, and synchronization
 - 📝 **React Hook Form** - Enhanced form management with custom field registration and scrolling
 - 🧹 **ESLint 9** - Modern linting with flat config and TypeScript support
@@ -37,7 +37,7 @@ A comprehensive, production-ready React template built with modern tools and bes
 
 ### Routing & State Management
 
-- **React Router 7.6** - Declarative routing with data loading and streaming capabilities
+- **React Router 7.6** - Declarative routing with framework mode, data loading and streaming capabilities
 - **TanStack Query 5.83** - Server state management with caching, background updates, and optimistic updates
 - **TanStack Query DevTools** - Development tools for debugging queries
 - **React Hook Form** - Performant forms with easy validation and enhanced field management
@@ -68,7 +68,6 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **Humps 2.0** - String case conversion utilities
 - **Query String 9.2** - URL query string parsing and stringifying
 - **Minimatch 10.0** - Glob pattern matching
-- **AbortController Polyfill** - Fetch cancellation support
 
 ## 🚀 Quick Start
 
@@ -134,23 +133,18 @@ A comprehensive, production-ready React template built with modern tools and bes
 
 ### Development
 
-- `yarn dev` - Start development server using custom prepare-app script
-- `yarn dev:ssr` - Start development server with Server-Side Rendering and Panda CSS watch mode
+- `yarn dev` - Start development server with Panda CSS watch mode using custom prepare-app script
 - `yarn prepare` - Setup Husky Git hooks (runs automatically on install)
 - `yarn postinstall` - Initialize package.json with environment-based app name
 - `yarn init-pkg` - Force re-initialization of package.json (use with --force flag)
 
 ### Build & Production
 
-- `yarn build` - Build for production (TypeScript compilation + Panda CSS generation + Vite build)
-- `yarn build:ssr` - Build with Server-Side Rendering support (includes Panda CSS generation)
-- `yarn build:client` - Build client bundle only (TypeScript + Vite)
-- `yarn build:server` - Build server bundle for SSR
+- `yarn build` - Build for production (TypeScript compilation + Panda CSS generation + React Router build)
 
 ### Preview & Testing
 
 - `yarn preview` - Preview production build using dev script with --preview flag
-- `yarn preview:ssr` - Preview SSR build
 
 ### Code Quality
 
@@ -212,8 +206,9 @@ react-vite-template/
 │   ├── repositories/      # Data access layer
 │   │   ├── auth/          # Authentication repositories
 │   │   └── common/        # Common repository patterns
-│   ├── routes/            # Route definitions
-│   │   └── index.tsx      # Route configuration
+│   ├── routes/            # Route components
+│   │   ├── layout.tsx     # Root layout component
+│   │   └── home.tsx       # Home page route
 │   ├── utils/             # Utility functions
 │   │   ├── cookie/        # Cookie utilities
 │   │   ├── react-query/   # Query utilities
@@ -222,6 +217,8 @@ react-vite-template/
 │   │   └── url/           # URL utilities
 │   ├── entry-client.tsx   # Client-side entry point
 │   ├── entry-server.tsx   # Server-side entry point
+│   ├── root.tsx           # Root application component
+│   ├── routes.tsx         # Route configuration (RouteConfig)
 │   └── main.tsx           # Application entry point
 ├── server/                # Express server code
 │   ├── api/               # API routes
@@ -242,13 +239,14 @@ react-vite-template/
 │   ├── tokens/            # Design tokens
 │   └── types/             # Type definitions
 ├── certs/                 # SSL certificates (generated)
-├── dist/                  # Build output
+├── build/                 # Build output (React Router framework mode)
+│   ├── client/           # Client-side assets and bundles
+│   └── server/           # Server-side bundle for SSR
 ├── .env.example           # Environment variables template
 ├── .gitignore             # Git ignore rules
 ├── .package-initialized   # Package initialization marker file
 ├── .commitlintrc.json     # Commitlint configuration
 ├── eslint.config.js       # ESLint configuration
-├── index.html             # HTML template
 ├── package.json           # Dependencies and scripts
 ├── panda.config.ts        # Panda CSS configuration
 ├── postcss.config.cjs     # PostCSS configuration
@@ -320,28 +318,82 @@ export default defineConfig({
 
 ## 🧭 Routing
 
-This template uses React Router v7 with file-based routing patterns.
+This template uses React Router v7 in **framework mode** with a type-safe route configuration system powered by `@react-router/dev/routes`.
 
-### Route Definition
+### Framework Mode Benefits
 
-Routes are defined in `src/routes/index.tsx`:
+React Router framework mode provides:
+- **File-based routing** - Routes are automatically discovered from the file system
+- **Type-safe route configuration** - Full TypeScript support with `RouteConfig`
+- **Built-in data loading** - Server-side data fetching with loaders
+- **Streaming & SSR support** - Enhanced performance with server-side rendering
+- **Automatic code splitting** - Routes are automatically split for optimal loading
+
+### Route Configuration
+
+Routes are defined in `src/routes.tsx` using the `RouteConfig` type for full type safety:
 
 ```tsx
-import { createBrowserRouter } from "react-router";
+import type { RouteConfig } from "@react-router/dev/routes";
 
-const routes = [
+export default [
   {
-    path: "/",
-    element: <Home />,
+    file: "./routes/layout.tsx",
+    children: [
+      {
+        index: true,
+        file: "./routes/home.tsx",
+      },
+      {
+        path: "/about",
+        file: "./routes/about.tsx",
+      },
+    ],
   },
-  {
-    path: "/about",
-    element: <About />,
-  },
-];
-
-export default routes;
+] satisfies RouteConfig;
 ```
+
+### Current Routes
+
+- **Root Layout**: `src/routes/layout.tsx` - Main application layout wrapper using `DefaultLayout` component
+  - **Home Page** (`/`): `src/routes/home.tsx` - Application home page (index route) with meta tags and loader function
+  - **About Page** (`/about`): `src/routes/about.tsx` - About page with data loading, caching headers, and lazy loading demo
+
+### Route Features
+
+Each route file can export:
+- **Component** (default export): The React component to render
+- **Meta function**: For dynamic page metadata (title, description, etc.)
+- **Loader function**: For server-side data fetching with caching support
+- **Headers function**: For custom response headers and cache control
+
+#### Example Route Structure
+
+```tsx
+// src/routes/about.tsx
+import { data, useLoaderData, type HeadersArgs } from "react-router";
+
+export async function loader() {
+  // Server-side data fetching
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  
+  return data({
+    date: new Date().toISOString(),
+  });
+}
+
+export function headers(_: HeadersArgs) {
+  // Custom response headers
+  return { "Cache-Control": "private, max-age=10" };
+}
+
+export default function AboutPage() {
+  const data = useLoaderData<{ date: string }>();
+  return <div>Page content with loaded data</div>;
+}
+```
+
+This configuration provides type safety, automatic route discovery, and powerful data loading capabilities through React Router v7's framework mode.
 
 ## 🔄 Data Fetching
 
@@ -957,34 +1009,37 @@ updates:
 
 ## 🏗️ Building for Production
 
-### Client-Side Rendering (SPA)
+### Production Build
 
 ```bash
 yarn build
 ```
 
-This runs TypeScript compilation followed by Vite build.
+This runs a complete production build using React Router framework mode:
+1. **TypeScript compilation** - Compiles all TypeScript files
+2. **Panda CSS generation** - Generates optimized CSS files
+3. **React Router build** - Builds both client and server bundles with automatic code splitting
 
-### Server-Side Rendering (SSR)
+### Build Output
 
-```bash
-yarn build:ssr
+The build process generates the following structure in the `/build` directory (following `@react-router/dev` conventions):
+
+```
+build/
+├── client/           # Client-side assets and bundles
+│   ├── assets/      # Static assets (CSS, JS, images)
+│   └── ...          # Other client files
+└── server/          # Server-side bundle for SSR
+    └── index.js     # Server entry point
 ```
 
-This builds both client and server bundles:
+### Framework Mode Benefits
 
-- Client bundle: `dist/client/`
-- Server bundle: `dist/server/`
-
-### Individual Builds
-
-```bash
-# Build only the client
-yarn build:client
-
-# Build only the server
-yarn build:server
-```
+React Router framework mode automatically provides:
+- **Automatic code splitting** - Routes are split into separate bundles
+- **Optimized asset loading** - Smart preloading and resource prioritization
+- **SSR support** - Server-side rendering built-in
+- **Progressive enhancement** - Graceful degradation for JavaScript-disabled clients
 
 ## 📁 Key Configuration Files
 

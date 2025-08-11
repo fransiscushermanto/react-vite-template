@@ -1,7 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from "react-router";
 
 import { cx } from "@styled-system/css";
-import { isRouteCustomError } from "@/utils/react-router";
 
 import type { ErrorProps } from "./types";
 import { errorCss } from "./styles";
@@ -14,16 +13,8 @@ function Error(props: ErrorProps = { offline: false }) {
   const routerError = useRouteError();
 
   if (isRouteErrorResponse(routerError)) {
-    statusCode = routerError.status;
-    message = routerError.statusText;
-  }
-
-  if (isRouteCustomError(routerError)) {
-    statusCode = routerError.payload.statusCode;
-    message =
-      routerError.payload.message ||
-      routerError.message ||
-      "Unknown Custom Error";
+    statusCode = routerError.data.statusCode ?? routerError.status;
+    message = routerError.data.message ?? routerError.statusText;
   }
 
   if (offline) {

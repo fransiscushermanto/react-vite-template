@@ -82,21 +82,7 @@ const http = async (options: HttpOptions) => {
   const endpoint = base + path;
   const requestPath = endpoint + (_params ? `?${_params}` : "");
 
-  /**
-   * Abort controller with polyfill for nodejs & old browser.
-   * @see https://github.com/mo/abortcontroller-polyfill#readme
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/AbortController#browser_compatibility
-   */
-  let controller: AbortController;
-  if (typeof window === "undefined") {
-    const {
-      AbortController: _AbortController,
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-    } = await import("abortcontroller-polyfill/dist/cjs-ponyfill");
-    controller = new _AbortController();
-  } else {
-    controller = new AbortController();
-  }
+  const controller: AbortController = new AbortController();
 
   const request = customFetch(requestPath, {
     method: method,

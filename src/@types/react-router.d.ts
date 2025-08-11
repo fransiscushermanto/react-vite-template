@@ -1,3 +1,4 @@
+import type { ApiError } from "@/models/api";
 import type { DehydratedState } from "@tanstack/react-query";
 import type {
   IndexRouteObject,
@@ -53,4 +54,13 @@ declare module "react-router" {
   const a: RouteObject = {
     index: true,
   };
+
+  type ErrorResponse = {
+    status: number;
+    statusText: string;
+    data: ApiError;
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  declare function isRouteErrorResponse(error: any): error is ErrorResponse;
 }

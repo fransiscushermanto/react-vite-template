@@ -30,7 +30,6 @@ router.post("/login", (req, res, next) => {
 router.post("/logout", (_, res) => {
   res.clearCookie(COOKIES_KEY.ACCESS_TOKEN, {
     path: "/",
-    domain: ".julo.co.id",
   });
   res.clearCookie(COOKIES_KEY.IS_LOGGED_IN);
 

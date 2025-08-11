@@ -1,10 +1,10 @@
 import type { QueryKey } from "@tanstack/react-query";
 
 import type { QueryFunctionContext } from "@/hooks/react-query";
-import { API_BASE_PATH } from "@/constants/config";
 import queryStringify from "../url/query-stringify";
 import http from "./http";
 import type { InfiniteResult } from "./model/fetcher-infinite";
+import { buildBasePath } from "./utils";
 
 /**
  * @function fetcherInfinite
@@ -20,7 +20,10 @@ const fetcherInfinite = async (
   const version = `/v${apiVersion ?? 1}`;
 
   const [rpath, rparams] = queryKey;
-  const path = rpath ? `${basePath ?? API_BASE_PATH}${version}/${rpath}` : "";
+  const path = buildBasePath(String(rpath ?? ""), {
+    version,
+    basePath,
+  });
 
   let variables: Record<string, unknown>;
   if (pageParam) {

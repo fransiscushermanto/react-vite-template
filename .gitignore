@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+build
 *.local
 
 # Editor directories and files
@@ -32,3 +33,6 @@ certs
 
 # Package initialization marker
 .package-initialized
+
+# react-router
+.react-router/

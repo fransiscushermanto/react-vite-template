@@ -1,4 +1,4 @@
-export const PREPARE_ARGS = ["--preview", "--ssr", "--env", '--mode'] as const;
+export const PREPARE_ARGS = ["--preview", "--env", "--mode"] as const;
 
 export function getCliArgs(
   flag: (typeof PREPARE_ARGS)[number],

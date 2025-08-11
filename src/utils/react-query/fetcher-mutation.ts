@@ -1,7 +1,6 @@
-import { API_BASE_PATH } from "@/constants/config";
-
 import type { FetcherMutationOptions } from "./model";
 import http from "./http";
+import { buildBasePath } from "./utils";
 
 /**
  * @function fetcherMutation
@@ -10,7 +9,7 @@ import http from "./http";
 const fetcherMutation = async (options: FetcherMutationOptions) => {
   const { variables, context } = options;
   const {
-    path = "",
+    path: pathProp = "",
     method,
     headers = {},
     basePath,
@@ -28,9 +27,14 @@ const fetcherMutation = async (options: FetcherMutationOptions) => {
   const search = queryParams
     ? `?${new URLSearchParams(queryParams).toString()}`
     : "";
+  const path = buildBasePath(pathProp, {
+    version,
+    basePath,
+    search,
+  });
 
   const response = await http({
-    path: `${basePath ?? API_BASE_PATH}${version}/${path}${search}`,
+    path,
     body: variables,
     method: method ?? "POST",
     headers,

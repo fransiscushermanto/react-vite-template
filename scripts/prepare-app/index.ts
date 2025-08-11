@@ -4,12 +4,9 @@ import { SERVER_ARGS } from "../../server/utils";
 import { getCliArgs, PREPARE_ARGS } from "./utils";
 
 function main() {
-  const isPreview = getCliArgs("--preview");
-  const isSSR = getCliArgs("--ssr");
   const env = getCliArgs("--env")?.value ?? "";
   const mode = getCliArgs("--mode")?.value;
-  const viteMode = isPreview ? "vite preview" : "vite";
-  const cmd = isSSR ? "tsx watch ./server" : viteMode;
+  const cmd = "tsx watch ./server";
 
   const args = process.argv
     .slice(2)

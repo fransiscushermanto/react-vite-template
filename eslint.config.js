@@ -33,6 +33,7 @@ export default tseslint.config([
       ],
       "no-extra-boolean-cast": "off",
       "react-refresh/only-export-components": "off",
+      "@typescript-eslint/no-namespace": "off",
     },
   },
 ]);

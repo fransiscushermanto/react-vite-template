@@ -21,7 +21,7 @@
     "autoprefixer": "^10.4.21",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "humps": "^2.0.1",
     "isbot": "^5",

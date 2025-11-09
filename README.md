@@ -57,6 +57,8 @@ A comprehensive, production-ready React template built with modern tools and bes
 ### Server & Production
 
 - **Express 5.1** - Node.js server framework with middleware support
+- **@react-router/express 7.7** - React Router Express integration for SSR
+- **@react-router/node 7.7** - React Router Node.js utilities and adapters
 - **Cookie Parser 1.4** - Secure cookie handling and parsing
 - **CORS 2.8** - Cross-Origin Resource Sharing middleware
 - **Compression 1.8** - Response compression for better performance
@@ -68,6 +70,8 @@ A comprehensive, production-ready React template built with modern tools and bes
 - **Humps 2.0** - String case conversion utilities
 - **Query String 9.2** - URL query string parsing and stringifying
 - **Minimatch 10.0** - Glob pattern matching
+- **Isbot 5** - User agent bot detection for SSR optimization
+- **Node Fetch 3.3** - Fetch API implementation for Node.js environments
 
 ## 🚀 Quick Start
 

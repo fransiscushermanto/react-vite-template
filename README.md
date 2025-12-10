@@ -2,6 +2,8 @@
 
 A comprehensive, production-ready React template built with modern tools and best practices for scalable web applications.
 
+<img width="2032" height="1161" alt="Screenshot 2025-12-10 at 12 18 09" src="https://github.com/user-attachments/assets/862680c4-3e81-47ed-9d5d-4e3de7b0ce6a" />
+
 ## 🚀 Features
 
 - ⚡ **Vite 7.0** - Lightning fast build tool with HMR and enhanced optimization
